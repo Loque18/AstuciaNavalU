@@ -1,0 +1,91 @@
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+		<style>
+		canvas {
+		border:2px solid #28b0ff;
+		background-color: #f1f1f1;
+		}
+		</style>
+		
+	</head>
+	
+		<body onload="startGame()">
+		<br></br>
+		
+		<p>Introdusca las coordenadas en las que desea posicionar su barco</p>
+		<input id="corX" type="number"></input>
+		<input id="corY" type="number"></input>
+		<button id="boton" onclick="CrearBarco()">OK!</button>
+		
+		<script>
+			
+			var tamanoCla;
+
+			function startGame() {			
+			myGameArea.start();
+			
+			var tableroUno = new Tablero(800, 800, 100);
+			
+			}
+			
+			
+			
+
+			var myGameArea = {
+			canvas : document.createElement("canvas"),
+			start : function() {
+					this.canvas.width = 800;
+					this.canvas.height = 600;
+					this.context = this.canvas.getContext("2d");
+					document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+				}	
+			}
+			
+			
+			
+			function Tablero(anchoLinea, altoLinea, tamanoCla){
+				
+				linea = myGameArea.context;				
+				/* linea.moveTo(posicionX, posicionY);
+				   linea.lineTo(ancho, alto); */
+				
+				for(var i = 0; i < 100; i++){				
+						
+					//horizontales
+					linea.moveTo(0, (i+1)*tamanoCla);
+					linea.lineTo(anchoLinea, (i+1)*tamanoCla);
+					linea.stroke();
+						
+					//verticales
+					linea.moveTo((i+1)*tamanoCla, 0);
+					linea.lineTo((i+1)*tamanoCla, altoLinea);
+					linea.stroke();    					
+				}
+			}
+			
+			function CrearBarco(){
+			
+				var coordenadaX = document.getElementById("corX").value;
+				var coordenadaY = document.getElementById("corY").value;
+				
+				new Barco(30, 30, "black", coordenadaX , coordenadaY );			
+			}
+			
+			function Barco(ancho, alto, color, posicionX, posicionY){
+			
+				this.width = ancho;
+				this.height = alto;
+				this.x = posicionX;
+				this.y = posicionY;  
+				
+				cuadro = myGameArea.context;
+				cuadro.fillStyle = color;
+				cuadro.fillRect(this.x, this.y, this.width, this.height);
+			}
+	
+		</script>
+
+	</body>
+</html>
